@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import 'package:uts/dbhelper/dbhelper.dart';
-import 'package:uts/model/entryform.dart';
-import 'item.dart'; //pendukung program asinkron
+import 'package:uts/dbhelper/dbhelperPenjualan.dart';
+import 'package:uts/model/entryformPenjualan.dart';
+import 'package:uts/model/penjualan.dart';
+//pendukung program asinkron
 
-class Home extends StatefulWidget {
+class HomePenjualan extends StatefulWidget {
   @override
-  HomeState createState() => HomeState();
+  HomePenjualanState createState() => HomePenjualanState();
 }
 
-class HomeState extends State<Home> {
-  DbHelper dbHelper = DbHelper();
+class HomePenjualanState extends State<HomePenjualan> {
+  DbHelperPenjualan dbHelperPenjualan = DbHelperPenjualan();
   int count = 0;
-  List<Item> itemList;
+  List<Penjualan> penjualanList;
   @override
   Widget build(BuildContext context) {
-    if (itemList == null) {
-      itemList = List<Item>();
+    if (penjualanList == null) {
+      penjualanList = List<Penjualan>();
       updateListView();
     }
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Daftar Item Frozen Food')),
+        title: Center(child: Text('Daftar Penjualan Frozen Food')),
       ),
       body: Column(children: [
         Expanded(
@@ -33,12 +34,12 @@ class HomeState extends State<Home> {
           child: SizedBox(
             width: double.infinity,
             child: RaisedButton(
-              child: Text("Tambah Item"),
+              child: Text("Tambah Barang"),
               onPressed: () async {
-                var item = await navigateToEntryForm(context, null);
-                if (item != null) {
+                var jual = await navigateToEntryFormPenjualan(context, null);
+                if (jual != null) {
 //TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelper.insert(item);
+                  int result = await dbHelperPenjualan.insert(jual);
                   if (result > 0) {
                     updateListView();
                   }
@@ -51,10 +52,10 @@ class HomeState extends State<Home> {
     );
   }
 
-  Future<Item> navigateToEntryForm(BuildContext context, Item item) async {
+  Future<Penjualan> navigateToEntryFormPenjualan(BuildContext context, Penjualan jual) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
-      return EntryForm(item);
+      return EntryFormPenjualan(jual);
     }));
     return result;
   }
@@ -72,30 +73,27 @@ class HomeState extends State<Home> {
               backgroundColor: Colors.red,
               child: Icon(Icons.ad_units),
             ),
-            title: Text(
-              this.itemList[index].nama,
+            title: Text("Kode Barang : "+
+              this.penjualanList[index].kodebrg,
               style: textStyle,
             ),
-            subtitle: Text("Merk : " + this.itemList[index].merk.toString()+ "\n" 
-            + "Harga :  Rp " + this.itemList[index].harga.toString()+"\n"
-            + "Stock : " + this.itemList[index].stock.toString()+"\n"
-            + "Kode Barang : " + this.itemList[index].kodebarang.toString()+ "\n"
-            + "Expired : " + this.itemList[index].expired.toString()),
+            subtitle: Text("Nama : " + this.penjualanList[index].nama.toString()+ "\n" 
+            + "Jumlah Jual :   " + this.penjualanList[index].jumlahJual.toString()+"\n"),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                int result = await dbHelper.delete(this.itemList[index].idbrg);
+                int result = await dbHelperPenjualan.delete(this.penjualanList[index].kodebrg);
                 if (result > 0) {
                   updateListView();
                 }
               },
             ),
             onTap: () async {
-              var item =
-                  await navigateToEntryForm(context, this.itemList[index]);
+              var jual =
+                  await navigateToEntryFormPenjualan(context, this.penjualanList[index]);
 //TODO 4 Panggil Fungsi untuk Edit data
-              int result = await dbHelper.update(item);
+              int result = await dbHelperPenjualan.update(jual);
               if (result > 0) {
                 updateListView();
               }
@@ -108,14 +106,14 @@ class HomeState extends State<Home> {
 
 //update List item
   void updateListView() {
-    final Future<Database> dbFuture = dbHelper.initDb();
+    final Future<Database> dbFuture = dbHelperPenjualan.initDb();
     dbFuture.then((database) {
 //TODO 1 Select data dari DB
-      Future<List<Item>> itemListFuture = dbHelper.getItemList();
-      itemListFuture.then((itemList) {
+      Future<List<Penjualan>> penjualanListFuture = dbHelperPenjualan.getpenjualanList();
+      penjualanListFuture.then((penjualanList) {
         setState(() {
-          this.itemList = itemList;
-          this.count = itemList.length;
+          this.penjualanList = penjualanList;
+          this.count = penjualanList.length;
         });
       });
     });

@@ -1,6 +1,6 @@
 //kode utama Aplikasi tampilan awal
 import 'package:flutter/material.dart';
-import 'package:uts/model/home.dart'; //package letak folder Anda
+import 'package:uts/DrawerNav.dart';//package letak folder Anda
 
 void main() => runApp(MyApp());
 
@@ -9,11 +9,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Tambahkan Item',
+      title : 'UTS',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
-      home: Home(),
+   
+   home : DrawerNav(),
+      // body : Center(
+      //   child: RaisedButton(
+      //     child: Text('Tambah Penjualan'),
+      //     onLongPress: (){
+      //       Navigator.push(context, MaterialPageRoute(builder: (context) => HomePenjualan()));
+      //     },
+      //   ),
+      // ),
+      
+      
     );
   }
 }
