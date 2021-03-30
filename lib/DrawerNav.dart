@@ -19,7 +19,7 @@ class _DrawerNavState extends State<DrawerNav> {
               accountEmail: Text("dindarizky223@gmail.com"),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(
-                    ''),
+                    'https://lh3.googleusercontent.com/ogw/ADGmqu8SMTpgqq_YKNKxBIyuGTvcPskEVSIOnK2b5Yn5RA=s192-c-mo'),
               ),
             ),
             ListTile(
