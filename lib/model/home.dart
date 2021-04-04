@@ -38,7 +38,7 @@ class HomeState extends State<Home> {
                 var item = await navigateToEntryForm(context, null);
                 if (item != null) {
 //TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelper.insert(item);
+                  int result = await dbHelper.insertitem(item);
                   if (result > 0) {
                     updateListView();
                   }
@@ -85,7 +85,7 @@ class HomeState extends State<Home> {
               child: Icon(Icons.delete),
               onTap: () async {
 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                int result = await dbHelper.delete(this.itemList[index].idbrg);
+                int result = await dbHelper.deleteitem(this.itemList[index].idbrg);
                 if (result > 0) {
                   updateListView();
                 }
@@ -95,7 +95,7 @@ class HomeState extends State<Home> {
               var item =
                   await navigateToEntryForm(context, this.itemList[index]);
 //TODO 4 Panggil Fungsi untuk Edit data
-              int result = await dbHelper.update(item);
+              int result = await dbHelper.updateitem(item);
               if (result > 0) {
                 updateListView();
               }

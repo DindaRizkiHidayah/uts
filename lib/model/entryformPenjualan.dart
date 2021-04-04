@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'penjualan.dart';
 
 class EntryFormPenjualan extends StatefulWidget {
-  final Penjualan jual;
-  EntryFormPenjualan(this.jual);
+  final Penjualan penjualan;
+  EntryFormPenjualan(this.penjualan);
   @override
-  EntryFormPenjualanState createState() => EntryFormPenjualanState(this.jual);
+  EntryFormPenjualanState createState() => EntryFormPenjualanState(this.penjualan);
 }
 
 //class controller
 class EntryFormPenjualanState extends State<EntryFormPenjualan> {
-  Penjualan jual;
-  EntryFormPenjualanState(this.jual);
+  Penjualan penjualan;
+  EntryFormPenjualanState(this.penjualan);
   TextEditingController kodebrgController = TextEditingController();
   TextEditingController namaController = TextEditingController();
   TextEditingController jumlahJualController = TextEditingController();
   @override
   Widget build(BuildContext context) {
 //kondisi
-    if (jual != null) {
-      kodebrgController.text = jual.kodebrg.toString();
-      namaController.text = jual.nama;
-      jumlahJualController.text = jual.jumlahJual.toString();
+    if (penjualan != null) {
+      kodebrgController.text = penjualan.kodebrg.toString();
+      namaController.text = penjualan.nama;
+      jumlahJualController.text = penjualan.jumlahJual.toString();
     }
 //rubah
     return Scaffold(
         appBar: AppBar(
-          title: jual == null ? Text('Tambah') : Text('Ubah'),
+          title: penjualan == null ? Text('Tambah') : Text('Ubah'),
           leading: Icon(Icons.keyboard_arrow_left),
         ),
         body: Padding(
@@ -38,7 +38,7 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
                   controller: kodebrgController,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     labelText: 'Kode Barang',
                     border: OutlineInputBorder(
@@ -99,20 +99,20 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
                           textScaleFactor: 1.5,
                         ),
                         onPressed: () {
-                          if (jual == null) {
+                          if (penjualan == null) {
 // tambah data
-                            jual = Penjualan(int.parse(kodebrgController.text),
+                            penjualan = Penjualan(int.parse(kodebrgController.text),
                                 namaController.text,
                                 int.parse(jumlahJualController.text),
                                 );
                           } else {
 // ubah data
-                            jual.kodebrg = kodebrgController.text;
-                            jual.nama = namaController.text;
-                            jual.jumlahJual = int.parse(jumlahJualController.text);
+                            penjualan.kodebrg = kodebrgController.text;
+                            penjualan.nama = namaController.text;
+                            penjualan.jumlahJual = int.parse(jumlahJualController.text);
                           }
 // kembali ke layar sebelumnya dengan membawa objek item
-                          Navigator.pop(context, jual);
+                          Navigator.pop(context, penjualan);
                         },
                       ),
                     ),

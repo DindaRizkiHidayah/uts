@@ -15,7 +15,7 @@ class _DrawerNavState extends State<DrawerNav> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Dinda Rizki Hidayah"),
+              accountName: Text("Frozen Food"),
               accountEmail: Text("dindarizky223@gmail.com"),
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(
@@ -24,13 +24,13 @@ class _DrawerNavState extends State<DrawerNav> {
             ),
             ListTile(
               leading: Icon(Icons.add_shopping_cart),
-              title: Text("Data Penjualan Barang"),
+              title: Text("Data Penjualan Frozen Food"),
               onTap: () => Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => HomePenjualan())),
             ),
             ListTile(
               leading: Icon(Icons.list),
-              title: Text("Data Stock Barang"),
+              title: Text("Data Stock Frozen Food"),
               onTap: () => Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => Home())),
             ),

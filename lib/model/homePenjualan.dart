@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import 'package:uts/dbhelper/dbhelperPenjualan.dart';
+import 'package:uts/dbhelper/dbhelper.dart';
 import 'package:uts/model/entryformPenjualan.dart';
-import 'package:uts/model/penjualan.dart';
-//pendukung program asinkron
+import 'package:uts/model/penjualan.dart';//pendukung program asinkron
 
 class HomePenjualan extends StatefulWidget {
   @override
@@ -12,7 +11,7 @@ class HomePenjualan extends StatefulWidget {
 }
 
 class HomePenjualanState extends State<HomePenjualan> {
-  DbHelperPenjualan dbHelperPenjualan = DbHelperPenjualan();
+  DbHelper dbHelper = DbHelper();
   int count = 0;
   List<Penjualan> penjualanList;
   @override
@@ -34,12 +33,12 @@ class HomePenjualanState extends State<HomePenjualan> {
           child: SizedBox(
             width: double.infinity,
             child: RaisedButton(
-              child: Text("Tambah Barang"),
+              child: Text("Tambah Penjualan"),
               onPressed: () async {
-                var jual = await navigateToEntryFormPenjualan(context, null);
-                if (jual != null) {
+                var penjualan = await navigateToEntryForm(context, null);
+                if ( penjualan != null) {
 //TODO 2 Panggil Fungsi untuk Insert ke DB
-                  int result = await dbHelperPenjualan.insert(jual);
+                  int result = await dbHelper.insertpenjualan(penjualan);
                   if (result > 0) {
                     updateListView();
                   }
@@ -52,10 +51,10 @@ class HomePenjualanState extends State<HomePenjualan> {
     );
   }
 
-  Future<Penjualan> navigateToEntryFormPenjualan(BuildContext context, Penjualan jual) async {
+  Future<Penjualan> navigateToEntryForm(BuildContext context, Penjualan penjualan) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
-      return EntryFormPenjualan(jual);
+      return EntryFormPenjualan(penjualan);
     }));
     return result;
   }
@@ -73,27 +72,28 @@ class HomePenjualanState extends State<HomePenjualan> {
               backgroundColor: Colors.red,
               child: Icon(Icons.ad_units),
             ),
-            title: Text("Kode Barang : "+
-              this.penjualanList[index].kodebrg,
+            title: Text(
+              this.penjualanList[index].nama,
               style: textStyle,
             ),
-            subtitle: Text("Nama : " + this.penjualanList[index].nama.toString()+ "\n" 
-            + "Jumlah Jual :   " + this.penjualanList[index].jumlahJual.toString()+"\n"),
+            subtitle: Text("Kode Barang : " + this.penjualanList[index].kodebrg.toString()+ "\n" 
+            + "Nama :   " + this.penjualanList[index].nama.toString()+"\n"
+            + "Jumlah Barang : " + this.penjualanList[index].jumlahJual.toString()+"\n"),
             trailing: GestureDetector(
               child: Icon(Icons.delete),
               onTap: () async {
 //TODO 3 Panggil Fungsi untuk Delete dari DB berdasarkan Item
-                int result = await dbHelperPenjualan.delete(this.penjualanList[index].kodebrg);
+                int result = await dbHelper.deletepenjualan(this.penjualanList[index].idPenjualan);
                 if (result > 0) {
                   updateListView();
                 }
               },
             ),
             onTap: () async {
-              var jual =
-                  await navigateToEntryFormPenjualan(context, this.penjualanList[index]);
+              var penjualan =
+                  await navigateToEntryForm(context, this.penjualanList[index]);
 //TODO 4 Panggil Fungsi untuk Edit data
-              int result = await dbHelperPenjualan.update(jual);
+              int result = await dbHelper.updatepenjualan(penjualan);
               if (result > 0) {
                 updateListView();
               }
@@ -106,10 +106,10 @@ class HomePenjualanState extends State<HomePenjualan> {
 
 //update List item
   void updateListView() {
-    final Future<Database> dbFuture = dbHelperPenjualan.initDb();
+    final Future<Database> dbFuture = dbHelper.initDb();
     dbFuture.then((database) {
 //TODO 1 Select data dari DB
-      Future<List<Penjualan>> penjualanListFuture = dbHelperPenjualan.getpenjualanList();
+      Future<List<Penjualan>> penjualanListFuture = dbHelper.getPenjualanList();
       penjualanListFuture.then((penjualanList) {
         setState(() {
           this.penjualanList = penjualanList;
