@@ -19,7 +19,7 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
   Widget build(BuildContext context) {
 //kondisi
     if (penjualan != null) {
-      kodebrgController.text = penjualan.kodebrg.toString();
+      kodebrgController.text = penjualan.kodebarang;
       namaController.text = penjualan.nama;
       jumlahJualController.text = penjualan.jumlahJual.toString();
     }
@@ -33,12 +33,12 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
           padding: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
           child: ListView(
             children: <Widget>[
-// nama
+// kode barang
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
                   controller: kodebrgController,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Kode Barang',
                     border: OutlineInputBorder(
@@ -50,7 +50,7 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
                   },
                 ),
               ),
-// harga
+// nama barang
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
@@ -67,7 +67,7 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
                   },
                 ),
               ),
-              
+     //jumlah jual         
                Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
@@ -101,13 +101,13 @@ class EntryFormPenjualanState extends State<EntryFormPenjualan> {
                         onPressed: () {
                           if (penjualan == null) {
 // tambah data
-                            penjualan = Penjualan(int.parse(kodebrgController.text),
+                            penjualan = Penjualan(kodebrgController.text,
                                 namaController.text,
                                 int.parse(jumlahJualController.text),
                                 );
                           } else {
 // ubah data
-                            penjualan.kodebrg = kodebrgController.text;
+                            penjualan.kodebarang = kodebrgController.text;
                             penjualan.nama = namaController.text;
                             penjualan.jumlahJual = int.parse(jumlahJualController.text);
                           }

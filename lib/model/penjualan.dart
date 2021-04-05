@@ -1,16 +1,16 @@
 class Penjualan {
   int _idPenjualan;
-  int _kodebrg;
+  String _kodebarang;
   String _nama;
   int _jumlahJual;
 
   get idPenjualan => this._idPenjualan;
 
-  set idPenjualan(int value) => this._idPenjualan = value;
+  set idPenjualan(value) => this._idPenjualan = value;
 
-  get kodebrg => this._kodebrg;
+  String get kodebarang => this._kodebarang;
 
-  set kodebrg(value) => this._kodebrg = value;
+ set kodebarang(String value) => this._kodebarang = value;
 
   get nama => this._nama;
 
@@ -20,11 +20,11 @@ class Penjualan {
 
   set jumlahJual(value) => this._jumlahJual = value;
 
-  Penjualan(this._kodebrg, this._nama, this._jumlahJual);
+  Penjualan(this._kodebarang, this._nama, this._jumlahJual);
 
   Penjualan.fromMap(Map<String, dynamic> map) {
     this.idPenjualan = map['idPenjualan'];
-    this._kodebrg = map['kodebrg'];
+    this._kodebarang = map['kodebarang'];
     this._nama = map['nama'];
     this._jumlahJual = map['jumlahJual'];
   }
@@ -32,7 +32,7 @@ class Penjualan {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['idPenjualan'] = idPenjualan;
-    map['kodebrg'] = kodebrg;
+    map['kodebarang'] = kodebarang;
     map['nama'] = nama;
     map['jumlahJual'] = jumlahJual;
     return map;

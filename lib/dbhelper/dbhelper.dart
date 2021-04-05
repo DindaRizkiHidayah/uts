@@ -16,7 +16,7 @@ class DbHelper {
 
     //create, read databases
     var tokofrozenDatabase =
-        openDatabase(path, version: 7, onCreate: _createDb);
+        openDatabase(path, version: 11, onCreate: _createDb);
     //mengembalikan nilai object sebagai hasil dari fungsinya
     return tokofrozenDatabase;
   }
@@ -26,7 +26,7 @@ class DbHelper {
     _createDb(db, newVersion);
   }
 
-  //pembuatan table book
+  //pembuatan table item
   void _createDb(Database db, int version) async {
   var batch = db.batch();
   batch.execute('DROP TABLE IF EXISTS item');
@@ -42,11 +42,11 @@ kodebarang TEXT,
 expired INTEGER
 )
 ''');
-
+//pembuatan tabel penjualan
  batch.execute('''
-CREATE TABLE Penjualan (
+CREATE TABLE penjualan (
 idPenjualan INTEGER PRIMARY KEY AUTOINCREMENT,
-kodebrg INTEGER,
+kodebarang TEXT,
 nama TEXT,
 jumlahJual INTEGER
 )
@@ -68,21 +68,21 @@ jumlahJual INTEGER
     return mapList;
   }
 
-  //fungsi untuk mengisi data pada tabel book
+  //fungsi untuk mengisi data pada tabel item
   Future<int> insertitem(Item object) async {
     Database db = await this.initDb();
     int count = await db.insert('item', object.toMap());
     return count;
   }
 
-  //fungsi untuk mengisi data pada tabel anggota
+  //fungsi untuk mengisi data pada tabel penjualan
   Future<int> insertpenjualan(Penjualan object) async {
     Database db = await this.initDb();
     int count = await db.insert('penjualan', object.toMap());
     return count;
   }
 
-  //fungsi untuk update data tabel book
+  //fungsi untuk update data tabel item
   Future<int> updateitem(Item object) async {
     Database db = await this.initDb();
     int count = await db.update('item', object.toMap(),
@@ -90,21 +90,21 @@ jumlahJual INTEGER
     return count;
   }
 
-  //fungsi untuk update tabel anggota
+  //fungsi untuk update tabel penjualan
   Future<int> updatepenjualan(Penjualan object) async {
     Database db = await this.initDb();
     int count = await db.update('penjualan', object.toMap(),
         where: 'idPenjualan=?', whereArgs: [object.idPenjualan]);
     return count;
   }
-  //fungsi untuk menghapus data tabel book
+  //fungsi untuk menghapus data tabel item
 
   Future<int> deleteitem(int idbrg) async {
     Database db = await this.initDb();
     int count = await db.delete('item', where: 'idbrg=?', whereArgs: [idbrg]);
     return count;
   }
-  //fungsi untuk menghapus data tabel book
+  //fungsi untuk menghapus data tabel penjualan
 
   Future<int> deletepenjualan(int idPenjualan) async {
     Database db = await this.initDb();

@@ -107,7 +107,7 @@ class EntryFormState extends State<EntryForm> {
                   },
                 ),
               ),
-//kodebarang
+//kode barang
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(

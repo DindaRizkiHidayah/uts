@@ -76,8 +76,7 @@ class HomePenjualanState extends State<HomePenjualan> {
               this.penjualanList[index].nama,
               style: textStyle,
             ),
-            subtitle: Text("Kode Barang : " + this.penjualanList[index].kodebrg.toString()+ "\n" 
-            + "Nama :   " + this.penjualanList[index].nama.toString()+"\n"
+            subtitle: Text("Kode Barang :   " + this.penjualanList[index].kodebarang.toString()+"\n"
             + "Jumlah Barang : " + this.penjualanList[index].jumlahJual.toString()+"\n"),
             trailing: GestureDetector(
               child: Icon(Icons.delete),

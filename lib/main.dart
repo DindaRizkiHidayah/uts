@@ -15,14 +15,7 @@ class MyApp extends StatelessWidget {
       ),
    
    home : DrawerNav(),
-      // body : Center(
-      //   child: RaisedButton(
-      //     child: Text('Tambah Penjualan'),
-      //     onLongPress: (){
-      //       Navigator.push(context, MaterialPageRoute(builder: (context) => HomePenjualan()));
-      //     },
-      //   ),
-      // ),
+      
       
       
     );
