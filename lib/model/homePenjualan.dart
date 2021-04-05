@@ -3,7 +3,8 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:uts/dbhelper/dbhelper.dart';
 import 'package:uts/model/entryformPenjualan.dart';
-import 'package:uts/model/penjualan.dart';//pendukung program asinkron
+import 'package:uts/model/penjualan.dart';
+//pendukung program asinkron
 
 class HomePenjualan extends StatefulWidget {
   @override

@@ -6,7 +6,9 @@ class Item {
   int _stock;
   String _kodebarang;
   int _expired;
-
+//getter akan mengambil nilai yang dimasukkan ke consturctor dan setter ini akan dipakai untuk
+//mengembalikan nilai yang dimasukkan dari constructor, untuk setiap variable.
+ 
  get idbrg => this._idbrg;
 
  set idbrg( value) => this._idbrg = value;
@@ -36,9 +38,12 @@ class Item {
   set expired(value) => this._expired = value;
 
 // konstruktor versi 1
+// untuk mengeset nama,merk,harga,stock,kode barang,expired secara bersama - sama
   Item(this._nama,this._merk, this._harga, this._stock, this._kodebarang, this._expired);
 
 // konstruktor versi 2: konversi dari Map ke Item
+// digunakan untuk mengambil data dari sql yang
+//tersimpan berbentuk Map setelah itu akan disimpan kembali dalam bentuk variabel
   Item.fromMap(Map<String, dynamic> map) {
     this._idbrg = map['idbrg'];
     this._nama = map['nama'];
@@ -49,6 +54,7 @@ class Item {
     this._expired = map['expired'];
   }
 // konversi dari Item ke Map
+//  untuk melakukan update dan insert
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['idbrg'] = this._idbrg;
