@@ -74,10 +74,11 @@ class HomePenjualanState extends State<HomePenjualan> {
               child: Icon(Icons.ad_units),
             ),
             title: Text(
-              this.penjualanList[index].nama,
+              this.penjualanList[index].idPenjualan.toString(),
               style: textStyle,
             ),
             subtitle: Text("Kode Barang :   " + this.penjualanList[index].kodebarang.toString()+"\n"
+            +"Nama Barang :   " + this.penjualanList[index].nama.toString()+"\n"
             + "Jumlah Barang : " + this.penjualanList[index].jumlahJual.toString()+"\n"),
             trailing: GestureDetector(
               child: Icon(Icons.delete),

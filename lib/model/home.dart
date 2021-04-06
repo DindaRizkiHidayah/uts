@@ -73,10 +73,11 @@ class HomeState extends State<Home> {
               child: Icon(Icons.ad_units),
             ),
             title: Text(
-              this.itemList[index].nama,
+              this.itemList[index].idbrg.toString(),
               style: textStyle,
             ),
-            subtitle: Text("Merk : " + this.itemList[index].merk.toString()+ "\n" 
+            subtitle: Text("Nama : " + this.itemList[index].nama.toString()+ "\n" 
+            + "Merk : " + this.itemList[index].merk.toString()+ "\n" 
             + "Harga :  Rp " + this.itemList[index].harga.toString()+"\n"
             + "Stock : " + this.itemList[index].stock.toString()+"\n"
             + "Kode Barang : " + this.itemList[index].kodebarang.toString()+ "\n"
